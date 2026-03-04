@@ -1,10 +1,6 @@
-import { useState, createContext, useContext } from "react";
-
+import { useState, createContext } from "react";
+// 1 === 2 ? "true" : flase
 export const CartContext = createContext();
-
-export const useCart = () => {
-  useContext(CartContext);
-};
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
@@ -12,18 +8,19 @@ export const CartProvider = ({ children }) => {
   const addToCart = (item) => {
     setCart((prev) => {
       const existed = prev.find((cartItem) => cartItem.id === item.id);
-
       if (existed) {
         return prev.map((cartItem) =>
           cartItem.id === item.id
             ? { ...cartItem, quantity: cartItem.quantity + 1 }
-            : cartItem
+            : cartItem,
         );
       } else {
         return [...prev, { ...item, quantity: 1 }];
       }
     });
   };
+
+  const removeFromItem = (item) => {}; //task
 
   return (
     <CartContext.Provider
